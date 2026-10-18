@@ -18,7 +18,7 @@ def run():
     nombre_commandes = 0
 
     while True:
-        commande = input("MARVIN > ").strip().lower()
+        commande = input("MARVIN > ").strip().lower().rstrip("!?.,;:").strip()
     
         if execute_command(commande, nom, nombre_commandes):
             nombre_commandes += 1
