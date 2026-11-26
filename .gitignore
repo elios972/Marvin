@@ -1,6 +1,15 @@
+# Python : fichiers temporaires
 __pycache__/
 *.py[cod]
+*.pyo
+
+# Environnements virtuels
 .venv/
 venv/
+env/
+
+# Configuration locale
 .env
-.vscode/
+
+# Mémoire personnelle de MARVIN
+marvin/memory.json
