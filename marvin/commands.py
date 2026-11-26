@@ -1,9 +1,10 @@
 
 from datetime import datetime
-from marvin.command_aliases import trouver_commande
+from marvin.command_aliases import trouver_commande, extraire_argument
+from marvin.state import sauvegarder_memoire
 
 
-def execute_command(commande, nom, nombre_commandes):
+def execute_command(commande, nom, nombre_commandes, profil=None, memoire=None, texte_brut=None):
     """Exécute une commande reconnue par MARVIN."""
 
     nom_commande = trouver_commande(commande)
@@ -11,6 +12,22 @@ def execute_command(commande, nom, nombre_commandes):
     if nom_commande == "quitter":
         print(f"À bientôt {nom} !")
         return "quitter"
+
+    elif nom_commande == "renommer":
+        nouveau_nom = extraire_argument(texte_brut, "renommer")
+
+        if not nouveau_nom:
+            print("Utilisation : appelle-moi suivi de ton nom.")
+            return False
+
+        if profil is None or memoire is None:
+            print("Il n'y a pas de profil actif.")
+            return False
+
+        profil["nom"] = nouveau_nom
+        sauvegarder_memoire(memoire)
+
+        print(f"D'accord, je t'appellerai {nouveau_nom} désormais.")
 
     elif nom_commande == "bonjour":
         print(f"Bonjour {nom} !")
